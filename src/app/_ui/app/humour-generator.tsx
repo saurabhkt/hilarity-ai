@@ -135,6 +135,7 @@ export function HumourGenerator() {
 
         const { output } = await sendToAi(promptData);
         for await (const delta of readStreamableValue(output)) {
+            console.log("generated delta: "+delta);
             setGeneratedText(currentGeneration => `${currentGeneration}${delta}`);
         }
     }

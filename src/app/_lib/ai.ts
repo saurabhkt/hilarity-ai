@@ -14,6 +14,7 @@ export async function sendToAi(promptData: PromptData) {
                   `The content piece will be used for a ${promptData.format.name} so optimise it accordingly. ` +
                   `Do not explain your thought process or anything else. Simply respond with the content piece only and nothing else.`;
 
+  console.log("prompt: "+prompt);
   const stream = createStreamableValue('');
 
   (async () => {
@@ -24,13 +25,12 @@ export async function sendToAi(promptData: PromptData) {
 
     for await (const delta of textStream) {
       stream.update(delta);
-      console.log(delta);
     }
 
+    console.log("stream done");
     stream.done();
   })();
 
-  console.log(stream.value);
   return { output: stream.value };
 
 }
