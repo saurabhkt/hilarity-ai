@@ -24,11 +24,13 @@ export async function sendToAi(promptData: PromptData) {
 
     for await (const delta of textStream) {
       stream.update(delta);
+      console.log(delta);
     }
 
     stream.done();
   })();
 
+  console.log(stream.value);
   return { output: stream.value };
 
 }
